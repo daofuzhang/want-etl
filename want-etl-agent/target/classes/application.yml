@@ -1,0 +1,36 @@
+server:
+  port: 9601
+  servlet:
+    context-path: /want-etl-agent
+  compression:
+    enabled: true
+spring:
+  application:
+    name: want-etl-agent
+  servlet:
+    multipart:
+      location: ${user.home}
+      max-file-size: 50MB
+      max-request-size: 50MB
+  profiles:
+    active: 'dev'
+swagger:
+  basePackage: com.want
+---
+debug: true
+spring:
+  profiles: dev
+  datasource:
+    mysql:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://10.231.8.147:3306/wantETL?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
+      username: wantetl
+      password: P@ssw0rd
+      pool-name: HikariPool-custom
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 600000
+      validation-timeout: 5000
+      connection-test-query: SELECT 1
